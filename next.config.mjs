@@ -9,8 +9,9 @@ const nextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: __dirname,
   output: "export",
-  trailingSlash: true, 
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
