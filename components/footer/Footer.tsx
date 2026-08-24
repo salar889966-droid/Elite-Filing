@@ -11,6 +11,7 @@ import { servicesData } from "@/lib/data/services";
 import { countriesData } from "@/lib/data/countries";
 import { industriesData } from "@/lib/data/industries";
 import { toast } from "sonner";
+import { subscribeNewsletterAction } from "@/app/actions/forms";
 
 // ─── Footer data ─────────────────────────────────────────────────────────────
 
@@ -69,15 +70,10 @@ export function Footer() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "footer" }),
-      });
+      const res = await subscribeNewsletterAction({ email, source: "footer" });
 
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        throw new Error(json.error || "Subscription failed.");
+      if (!res.success) {
+        throw new Error(res.error || "Subscription failed.");
       }
 
       setSubscribed(true);

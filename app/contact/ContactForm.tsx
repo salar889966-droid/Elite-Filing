@@ -3,7 +3,7 @@
 import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { submitContactForm } from "@/app/actions/contact";
+import { submitFormAction } from "@/app/actions/forms";
 
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +17,7 @@ export function ContactForm() {
 
     const formData = new FormData(e.currentTarget);
     const data = {
+      formType: "contact",
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       phone: (formData.get("phone") as string) || "",
@@ -27,7 +28,7 @@ export function ContactForm() {
     };
 
     try {
-      const res = await submitContactForm(data);
+      const res = await submitFormAction(data);
 
       if (!res.success) {
         throw new Error(res.error || "Failed to send message.");

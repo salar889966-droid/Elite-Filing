@@ -1,0 +1,571 @@
+Style 1
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { normalizeMovie } from "@/lib/providers/utils";
+import WatchlistButton from "./WatchlistButton";
+import { MessageSquare, Star } from "lucide-react"; // npm install lucide-react
+
+interface FeaturedSpotlightProps {
+  movies: any[];
+  loading?: boolean;
+}
+
+export default function FeaturedSpotlight({ movies, loading = false }: FeaturedSpotlightProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isIntroDone, setIsIntroDone] = useState(false);
+
+  useEffect(() => {
+    if (loading || !movies?.length) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % Math.min(movies.length, 10));
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [loading, movies]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsIntroDone(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading || !isIntroDone) return <SplashLoader />;
+  if (!movies || movies.length === 0) return null;
+
+  const currentRawMovie = movies[currentIndex];
+  const movie = normalizeMovie(currentRawMovie);
+
+  // Data extraction
+  const backdropSrc = movie.backdropUrl || movie.backdrop || movie.backdrop_path;
+  const title = movie.title || "Unknown Title";
+  const overview = movie.overview || currentRawMovie.overview || "No description available.";
+  const year = movie.release_date?.split("-")[0] || movie.year || "N/A";
+  const rating = movie.vote_average?.toFixed(1) || "0.0";
+  const votes = movie.vote_count?.toLocaleString() || "0";
+  const language = (movie.original_language || "EN").toUpperCase();
+
+  return (
+    <section className="relative w-full h-[70vh] md:h-[85vh] min-h-[550px] overflow-hidden bg-black rounded-3xl border border-white/5 shadow-2xl">
+      {/* Background Image with AnimatePresence */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`bg-${movie.id}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0"
+        >
+          {backdropSrc && (
+            <img
+              src={backdropSrc}
+              alt=""
+              className="w-full h-full object-cover object-top md:object-center transition-transform duration-[10s] scale-100 hover:scale-110"
+            />
+          )}
+          {/* Gradient Overlays to match the image style */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Text Content */}
+      <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 md:p-20 pb-24 md:pb-32">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`content-${movie.id}`}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl space-y-6"
+          >
+            {/* Title */}
+            <h1 className="text-4xl md:text-7xl font-bold text-white tracking-tight drop-shadow-2xl">
+              {title}
+            </h1>
+
+            {/* Metadata Badges */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded font-medium text-sm">
+                {year}
+              </span>
+              <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded flex items-center gap-1.5 font-medium text-sm">
+                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                {rating} <span className="opacity-50 font-normal">({votes} votes)</span>
+              </span>
+              <span className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded font-medium text-sm uppercase">
+                {language}
+              </span>
+            </div>
+
+            {/* Description */}
+            <p className="text-gray-200 text-base md:text-lg leading-relaxed max-w-2xl drop-shadow-md line-clamp-3">
+              {overview}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <Link
+                href={`/movie/${movie.id}`}
+                className="flex items-center gap-2 px-8 py-3.5 bg-brand-red hover:bg-brand-red/90 text-white font-bold rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-brand-red/20"
+              >
+                <MessageSquare className="w-5 h-5" />
+                Start a Discussion
+              </Link>
+
+              <div className="scale-110 origin-left">
+                <WatchlistButton movieId={movie.id} />
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Progress Dots */}
+      <div className="absolute bottom-10 left-6 md:left-20 flex gap-2 z-20">
+        {movies.slice(0, 10).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentIndex(i)}
+            className={`h-1.5 transition-all duration-500 rounded-full ${i === currentIndex ? "w-10 bg-brand-red" : "w-3 bg-white/30"
+              }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SplashLoader() {
+  return (
+    <div className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        className="text-center"
+      >
+        <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+          CINEMA<span className="text-brand-red">HUB</span>
+        </h2>
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 1.5, delay: 0.2 }}
+          className="h-1 bg-brand-red mt-2"
+        />
+      </motion.div>
+    </div>
+  );
+}
+
+
+Stlye 2 
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { normalizeMovie } from "@/lib/providers/utils";
+import WatchlistButton from "./WatchlistButton";
+
+interface FeaturedSpotlightProps {
+  movies: any[]; // Changed from showDetails to movies array
+  loading?: boolean;
+}
+
+export default function FeaturedSpotlight({ movies, loading = false }: FeaturedSpotlightProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isIntroDone, setIsIntroDone] = useState(false);
+
+  // Auto-rotate every 8 seconds
+  useEffect(() => {
+    if (loading || !movies?.length) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % Math.min(movies.length, 10));
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [loading, movies]);
+
+  // Splash Screen Intro Timer
+  useEffect(() => {
+    const timer = setTimeout(() => setIsIntroDone(true), 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading || !isIntroDone) {
+    return <SplashLoader />;
+  }
+
+  if (!movies || movies.length === 0) return null;
+
+  // Get current movie and normalize it
+  const currentRawMovie = movies[currentIndex];
+  const movie = normalizeMovie(currentRawMovie);
+
+  // Logic for image sources
+  const posterSrc = movie.posterUrl || movie.poster;
+  const backdropSrc = movie.backdropUrl || movie.backdrop || movie.backdrop_path;
+  const ratingScore = movie.vote_average || 8.5;
+  const ratingPct = Math.round((ratingScore / 10) * 100);
+
+  return (
+    <section className="relative rounded-3xl overflow-hidden bg-black border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)] min-h-[500px] flex items-center">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={movie.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0"
+        >
+          {/* Background Backdrop */}
+          {backdropSrc && (
+            <div className="absolute inset-0 z-0">
+              <img
+                src={backdropSrc}
+                alt=""
+                className="w-full h-full object-cover scale-105 blur-[2px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="relative z-10 p-8 md:p-16 w-full grid md:grid-cols-[300px_1fr] gap-12 items-center">
+        {/* Animated Poster */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`poster-${movie.id}`}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 50, opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="hidden md:block"
+          >
+            <div className="relative aspect-[2/3] rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+              <img src={posterSrc} alt={movie.title} className="w-full h-full object-cover" />
+              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 text-brand-red font-mono font-bold">
+                {ratingPct}%
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Details Text Content */}
+        <div className="space-y-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`text-${movie.id}`}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span className="bg-brand-red text-white text-[10px] font-black px-2 py-0.5 rounded tracking-widest uppercase">
+                  Featured
+                </span>
+                <span className="text-white/50 font-mono text-xs tracking-tighter">
+                  {currentIndex + 1} / {Math.min(movies.length, 10)}
+                </span>
+              </div>
+
+              <h1 className="text-4xl md:text-7xl font-heading text-white leading-none mb-4 uppercase italic tracking-tighter">
+                {movie.title}
+              </h1>
+
+              <p className="text-gray-400 text-lg max-w-2xl line-clamp-3 font-light leading-relaxed">
+                {movie.overview}
+              </p>
+
+              <div className="flex items-center gap-4 pt-8">
+                <Link
+                  href={`/movie/${movie.id}`}
+                  className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-brand-red hover:text-white transition-all transform hover:scale-105 active:scale-95"
+                >
+                  View Details
+                </Link>
+                <WatchlistButton movieId={movie.id} />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Slide Indicators (The 10 Dots) */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+        {movies.slice(0, 10).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentIndex(i)}
+            className={`h-1.5 transition-all duration-500 rounded-full ${i === currentIndex ? "w-12 bg-brand-red" : "w-3 bg-white/20 hover:bg-white/40"
+              }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ─── SPLASH LOADER COMPONENT ───────────────────────────────────────
+function SplashLoader() {
+  return (
+    <div className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="relative"
+      >
+        <h2 className="text-6xl md:text-8xl font-heading text-white tracking-tighter italic uppercase">
+          Cinema<span className="text-brand-red">Hub</span>
+        </h2>
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="h-1 bg-brand-red mt-2 shadow-[0_0_15px_#ff0000]"
+        />
+      </motion.div>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-6 font-mono text-xs text-gray-500 tracking-[0.3em] uppercase"
+      >
+        Initializing Cinematic Experience...
+      </motion.p>
+    </div>
+  );
+}
+
+
+Stlye 3 
+
+
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { normalizeMovie } from "@/lib/providers/utils";
+import WatchlistButton from "./WatchlistButton";
+
+interface FeaturedSpotlightProps {
+  movies: any[];
+  loading?: boolean;
+}
+
+export default function FeaturedSpotlight({ movies, loading = false }: FeaturedSpotlightProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isIntroDone, setIsIntroDone] = useState(false);
+
+  // Auto-rotate every 8 seconds
+  useEffect(() => {
+    if (loading || !movies?.length) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % Math.min(movies.length, 10));
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [loading, movies]);
+
+  // Splash Screen Intro Timer
+  useEffect(() => {
+    const timer = setTimeout(() => setIsIntroDone(true), 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading || !isIntroDone) {
+    return <SplashLoader />;
+  }
+
+  if (!movies || movies.length === 0) return null;
+
+  // Get current movie and normalize it
+  const currentRawMovie = movies[currentIndex];
+  const movie = normalizeMovie(currentRawMovie);
+
+  // --- FIXED VARIABLE MAPPING ---
+  const posterSrc = movie.posterUrl || movie.poster || movie.poster_path;
+  const backdropSrc = movie.backdropUrl || movie.backdrop || movie.backdrop_path || currentRawMovie.backdrop_path;
+  const ratingScore = movie.vote_average || 8.5;
+  const ratingPct = Math.round((ratingScore / 10) * 100);
+  const overview = movie.overview || currentRawMovie.overview || "No description available.";
+
+  return (
+    <section className="relative rounded-3xl overflow-hidden bg-black border border-white/5 shadow-[0_0_50px_rgba(0,0,0,0.5)] min-h-[500px] flex items-center">
+
+      {/* BACKGROUND IMAGE LAYER (Cinematic Blend) */}
+      {/* BACKGROUND IMAGE LAYER (Cinematic Blend) */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`bg-${movie.id || currentIndex}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2 }}
+          className="absolute inset-0 z-0 bg-black"
+        >
+          {backdropSrc ? (
+            <div className="relative h-full w-full overflow-hidden">
+              {/* 1. THE ACTUAL IMAGE */}
+              <img
+                src={backdropSrc}
+                alt=""
+                className="absolute right-0 top-0 h-full w-full md:w-[90%] object-cover object-center"
+              />
+
+              {/* 2. THE DEPTH GRADIENT (Left to Right) */}
+              {/* We use 'via' points to make the transition look "curved" and natural */}
+              <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black via-black/80 via-black/40 to-transparent" />
+
+              {/* 3. THE GROUNDING GRADIENT (Bottom to Top) */}
+              {/* This merges the banner into the rest of your black page */}
+              <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/20 to-transparent" />
+
+              {/* 4. THE VIGNETTE (Inner Shadow) */}
+              {/* This softens the outer edges of the container */}
+              <div className="absolute inset-0 z-[3] shadow-[inset_0_0_100px_rgba(0,0,0,0.9)]" />
+
+              {/* 5. BLUR MASK (Optional: Extra smoothness for the transition edge) */}
+              <div className="absolute inset-y-0 left-[10%] w-32 bg-black/40 blur-[80px] z-[1] hidden md:block" />
+            </div>
+          ) : (
+            <div className="w-full h-full bg-zinc-900" />
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="relative z-10 p-8 md:p-16 w-full grid md:grid-cols-[300px_1fr] gap-12 items-center">
+
+        {/* Animated Poster (Merging Shadow Effect) */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`poster-${movie.id}`}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 50, opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="hidden md:block"
+          >
+            <div className="relative aspect-[2/3] group 
+                /* 1. OUTER BLEND: Soft black glow that merges into the page */
+                shadow-[0_0_100px_40px_rgba(0,0,0,1)]">
+
+              {/* The Image */}
+              <img
+                src={posterSrc}
+                alt={movie.title}
+                className="w-full h-full object-cover rounded-2xl"
+              />
+
+              {/* 2. THE BLENDER OVERLAY: Multi-layered shadows to erase the edges */}
+              <div className="absolute inset-0 rounded-2xl pointer-events-none
+                  /* Layer 1: Strong edge fade */
+                  shadow-[inset_0_0_80px_30px_rgba(0,0,0,1)]
+                  /* Layer 2: Deeper corner fade */
+                  shadow-[inset_0_0_120px_60px_rgba(0,0,0,0.9)]" />
+
+              {/* 3. GRADIENT MASK: Final touch to ensure no hard lines survive */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/60 via-transparent to-black/60" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-black/60 via-transparent to-black/60" />
+
+              {/* Rating Badge */}
+              <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-brand-red font-mono font-bold z-20">
+                {ratingPct}%
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Details Text Content */}
+        <div className="space-y-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`text-${movie.id}`}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span className="bg-brand-red text-white text-[10px] font-black px-2 py-0.5 rounded tracking-widest uppercase">
+                  Featured
+                </span>
+                <span className="text-white/50 font-mono text-xs tracking-tighter">
+                  {currentIndex + 1} / {Math.min(movies.length, 10)}
+                </span>
+              </div>
+
+              <h1 className="font-heading text-4xl md:text-7xl text-white leading-none mb-4 uppercase italic tracking-tighter">
+                {movie.title}
+              </h1>
+
+              <p className="text-black-400 text-lg max-w-2xl line-clamp-3 font-light leading-relaxed">
+                {overview}
+              </p>
+
+              <div className="flex items-center gap-4 pt-8">
+                <Link
+                  href={`/movie/${movie.id}`}
+                  className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-brand-red hover:text-white transition-all transform hover:scale-105 active:scale-95"
+                >
+                  View Details
+                </Link>
+                <WatchlistButton movieId={movie.id} />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+        {movies.slice(0, 10).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentIndex(i)}
+            className={`h-1.5 transition-all duration-500 rounded-full ${i === currentIndex ? "w-12 bg-brand-red" : "w-3 bg-white/20 hover:bg-white/40"}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SplashLoader() {
+  return (
+    <div className="fixed inset-0 z-[999] bg-black flex flex-col items-center justify-center">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="relative text-center"
+      >
+        <h2 className="text-6xl md:text-8xl font-heading text-white tracking-tighter italic uppercase">
+          Sarmaya<span className="text-brand-red">Hub</span>
+        </h2>
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="h-1 bg-brand-red mt-2 shadow-[0_0_15px_#ff0000]"
+        />
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="mt-6 font-mono text-xs text-gray-500 tracking-[0.3em] uppercase"
+        >
+          Initializing Cinematic Experience...
+        </motion.p>
+      </motion.div>
+    </div>
+  );
+}

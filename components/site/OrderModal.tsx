@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X, CheckCircle2, Loader2, ShieldCheck, ArrowRight, Building2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
+import { submitFormAction } from "@/app/actions/forms";
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -58,36 +59,33 @@ export function OrderModal({
 
     try {
       const payload = {
+        formType: "company_formation",
         customerName: formData.customerName,
         email: formData.email,
         phone: formData.phone,
-        country: selectedCountry,
-        tier: selectedTier,
-        companyNameOption1: formData.companyNameOption1,
+        country: countryLabels[selectedCountry] || selectedCountry,
+        service: `${selectedTier.toUpperCase()} Package Formation`,
+        companyName: formData.companyNameOption1,
         companyNameOption2: formData.companyNameOption2,
         addons: formData.addons,
         notes: formData.notes,
       };
 
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await submitFormAction(payload);
 
-      const json = await res.json();
-
-      if (!res.ok || !json.success) {
-        throw new Error(json.error || "Failed to process order.");
+      if (!res.success) {
+        throw new Error(res.error || "Failed to process order.");
       }
 
+      const generatedOrderId = res.data?.leadId ? res.data.leadId.slice(0, 8).toUpperCase() : `ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+
       setOrderResult({
-        orderId: json.data.id,
-        totalAmount: json.data.totalAmount,
-        currency: json.data.currency,
+        orderId: generatedOrderId,
+        totalAmount: selectedTier === "scale" ? 999 : selectedTier === "growth" ? 499 : 199,
+        currency: "$",
       });
 
-      toast.success(`Filing Order #${json.data.id} Created!`);
+      toast.success(`Filing Order #${generatedOrderId} Created!`);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Error placing order";
       toast.error(msg);

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X, Calendar, Clock, CheckCircle2, Phone, Mail, User, Globe, ArrowRight, MessageSquare, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { submitFormAction } from "@/app/actions/forms";
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -42,23 +43,22 @@ export function ConsultationModal({ isOpen, onClose, defaultService = "Company F
     setLoading(true);
 
     try {
-      const res = await fetch("/api/consultation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const res = await submitFormAction({
+        ...formData,
+        formType: "booking",
       });
 
-      const json = await res.json();
-
-      if (!res.ok || !json.success) {
-        throw new Error(json.error || "Failed to submit booking request.");
+      if (!res.success) {
+        throw new Error(res.error || "Failed to submit booking request.");
       }
 
+      const bookingRef = res.data?.leadId ? res.data.leadId.slice(0, 8).toUpperCase() : `BKG-${Math.floor(1000 + Math.random() * 9000)}`;
+
       setBookingResult({
-        bookingId: json.data.bookingId,
-        name: json.data.name,
+        bookingId: bookingRef,
+        name: formData.name,
       });
-      toast.success("Strategy session requested! Ref: " + json.data.bookingId);
+      toast.success("Strategy session requested! Ref: " + bookingRef);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Error submitting request";
       toast.error(msg);

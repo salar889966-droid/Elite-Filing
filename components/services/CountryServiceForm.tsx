@@ -7,6 +7,7 @@ import {
   Building2, Shield, Landmark, Calculator, Briefcase, Globe2, FileText, FileCheck, Stamp
 } from "lucide-react";
 import { toast } from "sonner";
+import { submitFormAction } from "@/app/actions/forms";
 
 const getServiceIcon = (name: string) => {
   const nameLower = name.toLowerCase();
@@ -91,16 +92,34 @@ export function CountryServiceForm({ country }: CountryServiceFormProps) {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const payload = {
+        formType: "company_formation",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        companyName: formData.companyName,
+        country: country.name,
+        service: selectedServices.join(", "),
+        details: {
+          selectedServices,
+          totalPrice,
+          currency,
+          countrySlug: country.slug,
+          notes: formData.notes,
+        },
+      };
+
+      const res = await submitFormAction(payload);
+
+      if (!res.success) {
+        throw new Error(res.error || "Failed to submit order.");
+      }
       
       setIsSuccess(true);
       toast.success("Order submitted successfully! Our team will contact you shortly.");
-      
-      // Optionally save to localStorage or global state if persistence is needed later
-      // But user requested "no checkout page for new", so just a success state is fine.
-    } catch {
-      toast.error("Failed to submit order. Please try again.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to submit order. Please try again.";
+      toast.error(msg);
     } finally {
       setIsSubmitting(false);
     }
