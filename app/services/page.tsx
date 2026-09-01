@@ -111,9 +111,10 @@ export default function ServicesPage() {
               href={`/services/${country.slug}`}
               className="group flex flex-col items-center text-center p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-orange-500 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="text-5xl mb-4 transition-transform group-hover:scale-110">
-                {country.flag}
-              </div>
+              <span className={`fi fi-${country.code.toLowerCase()} rounded-sm shadow-sm shrink-0 mb-3 transition-transform group-hover:scale-110`} style={{ width: "32px", height: "22px", backgroundSize: "cover" }} />
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#F07228] bg-orange-500/10 px-2 py-0.5 rounded mb-3">
+                {country.code}
+              </span>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-orange-500 transition-colors">
                 {country.name}
               </h3>

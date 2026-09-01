@@ -1,5 +1,6 @@
 export interface CountryItem {
   slug: string;
+  code: string;
   name: string;
   flag: string;
   tagline: string;
@@ -27,6 +28,7 @@ export interface CountryItem {
 export const countriesData: CountryItem[] = [
   {
     slug: "united-states",
+    code: "US",
     name: "United States",
     flag: "🇺🇸",
     tagline: "LLCs, C-Corps, and full IRS and state compliance support.",
@@ -107,6 +109,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "united-kingdom",
+    code: "GB",
     name: "United Kingdom",
     flag: "🇬🇧",
     tagline: "LTD registration, Companies House filings, and VAT support.",
@@ -180,6 +183,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "uae",
+    code: "AE",
     name: "United Arab Emirates",
     flag: "🇦🇪",
     tagline: "Mainland, Free Zone, and Offshore company formation.",
@@ -238,6 +242,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "canada",
+    code: "CA",
     name: "Canada",
     flag: "🇨🇦",
     tagline: "Federal and provincial incorporation with GST/HST registration.",
@@ -289,6 +294,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "pakistan",
+    code: "PK",
     name: "Pakistan",
     flag: "🇵🇰",
     tagline: "SECP registration, NTN, sales tax, and FBR compliance.",
@@ -339,6 +345,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "china",
+    code: "CN",
     name: "China",
     flag: "🇨🇳",
     tagline: "WFOE, JV, and Rep Office formation in mainland China.",
@@ -350,6 +357,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "hong-kong",
+    code: "HK",
     name: "Hong Kong",
     flag: "🇭🇰",
     tagline: "Private limited company registration in Asia's premier financial hub.",
@@ -361,6 +369,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "japan",
+    code: "JP",
     name: "Japan",
     flag: "🇯🇵",
     tagline: "KK and GK company formation for Asia's third-largest economy.",
@@ -372,6 +381,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "france",
+    code: "FR",
     name: "France",
     flag: "🇫🇷",
     tagline: "SARL and SAS company formation in the heart of Europe.",
@@ -383,6 +393,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "germany",
+    code: "DE",
     name: "Germany",
     flag: "🇩🇪",
     tagline: "GmbH and UG formation in Europe's largest economy.",
@@ -394,6 +405,7 @@ export const countriesData: CountryItem[] = [
   },
   {
     slug: "turkey",
+    code: "TR",
     name: "Turkey",
     flag: "🇹🇷",
     tagline: "A.Ş. and Ltd. Şti. formation bridging Europe and Asia.",

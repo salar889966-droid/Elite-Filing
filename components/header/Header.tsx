@@ -354,10 +354,11 @@ function DesktopNav() {
                     <NavigationMenuLink asChild>
                       <Link
                         href={`/services/${country.slug}`}
-                        className="group flex items-center gap-3 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80 transition-all duration-300"
+                        className="group flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80 transition-all duration-300"
                       >
-                        <span className="text-[22px] leading-none shrink-0 drop-shadow-sm transition-transform group-hover:scale-110">{country.flag}</span>
-                        <span className="text-[13px] font-bold uppercase tracking-wider text-[#0e3b96] dark:text-blue-300 group-hover:text-[#F07228] transition-colors leading-tight">
+                        <span className={`fi fi-${country.code.toLowerCase()} rounded-sm shadow-sm shrink-0`} style={{ width: "22px", height: "16px", backgroundSize: "cover" }} />
+                        <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#F07228] shrink-0 bg-orange-500/10 px-1.5 py-0.5 rounded">{country.code}</span>
+                        <span className="text-[12.5px] font-bold uppercase tracking-wide text-[#0e3b96] dark:text-blue-300 group-hover:text-[#F07228] transition-colors leading-tight">
                           {country.name}
                         </span>
                       </Link>
@@ -392,7 +393,7 @@ function DesktopNav() {
                                     />
                                   </span>
                                 )}
-                                <span className="text-[12.5px] font-medium text-slate-600 dark:text-slate-300 group-hover:text-[#0e3b96] dark:group-hover:text-blue-300 transition-colors leading-tight">
+                                <span className="text-[12.5px] font-medium text-slate-800 dark:text-slate-200 group-hover:text-[#0e3b96] dark:group-hover:text-blue-300 group-hover:translate-x-0.5 transition-all duration-200 leading-tight">
                                   {cat.categoryName}
                                 </span>
                               </Link>
@@ -419,9 +420,9 @@ function DesktopNav() {
                     {comingSoonCountries.map((c) => (
                       <span
                         key={c.slug}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11.5px] font-medium text-slate-600 bg-white border border-slate-200/80 shadow-sm"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11.5px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm"
                       >
-                        <span className="grayscale opacity-60 text-[14px] leading-none">{c.flag}</span>
+                        <span className={`fi fi-${c.code.toLowerCase()} rounded-sm shadow-sm shrink-0`} style={{ width: "18px", height: "13px", backgroundSize: "cover" }} />
                         {c.name}
                       </span>
                     ))}
@@ -521,7 +522,7 @@ function MobileNav({
                     onClick={close}
                     className="group flex items-center gap-3 px-3 py-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm hover:border-[#0e3b96]/30 transition-all"
                   >
-                    <span className="text-[24px] leading-none w-8 text-center shrink-0 drop-shadow-sm">{country.flag}</span>
+                    <span className={`fi fi-${country.code.toLowerCase()} rounded-sm shadow-sm shrink-0`} style={{ width: "22px", height: "16px", backgroundSize: "cover" }} />
                     <div className="flex-1 min-w-0">
                       <p className="text-[14px] font-bold text-[#0e3b96] dark:text-blue-300 uppercase tracking-wide group-hover:text-[#F07228] transition-colors">{country.name}</p>
                       <p className="text-[11.5px] text-slate-500 truncate">{country.tagline}</p>
@@ -536,8 +537,8 @@ function MobileNav({
                 <p className="text-[10px] font-bold uppercase tracking-widest text-[#F07228] mb-3">Coming Soon</p>
                 <div className="grid grid-cols-1 gap-2">
                   {comingSoonCountries.map((country) => (
-                    <div key={country.slug} className="flex items-center gap-3 px-3 py-2 bg-white/60 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 opacity-80">
-                      <span className="text-[20px] leading-none w-8 text-center shrink-0 grayscale">{country.flag}</span>
+                    <div key={country.slug} className="flex items-center gap-3 px-3 py-2 bg-white/60 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800">
+                      <span className={`fi fi-${country.code.toLowerCase()} rounded-sm shadow-sm shrink-0`} style={{ width: "22px", height: "16px", backgroundSize: "cover" }} />
                       <span className="text-[13.5px] font-medium text-slate-500 flex-1">{country.name}</span>
                       <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#0e3b96]/5 text-[#0e3b96] border border-[#0e3b96]/10">Soon</span>
                     </div>

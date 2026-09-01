@@ -37,7 +37,7 @@ export default async function CountryServicesPage({ params }: CountryPageProps) 
 
   return (
     <div className="pb-24 bg-slate-50 dark:bg-slate-950 min-h-screen">
-      
+
       {/* ── Breadcrumb Strip ── */}
       <div className="w-full bg-[#f8fafe] dark:bg-slate-900/60 border-b border-[#0e3b96]/10 dark:border-slate-800 py-3.5">
         <div className="container-page flex items-center gap-2.5 text-[13px] font-semibold text-slate-500 dark:text-slate-400">
@@ -46,13 +46,14 @@ export default async function CountryServicesPage({ params }: CountryPageProps) 
           <Link href="/services" className="hover:text-[#0e3b96] dark:hover:text-blue-300 transition-colors">Services</Link>
           <ChevronRight className="w-3.5 h-3.5 text-[#F07228]" />
           <span className="text-[#0e3b96] dark:text-white flex items-center gap-1.5">
+            <span className={`fi fi-${item.code ? item.code.toLowerCase() : item.slug} rounded-sm shadow-sm shrink-0`} style={{ width: "24px", height: "18px", backgroundSize: "cover" }} />
             {item.name}
           </span>
         </div>
       </div>
 
       {/* ── Country Hero ── */}
-      <section 
+      <section
         className="relative w-full overflow-hidden bg-slate-900 flex flex-col justify-center"
         style={{ minHeight: "clamp(500px, 60vh, 700px)" }}
       >
@@ -75,10 +76,10 @@ export default async function CountryServicesPage({ params }: CountryPageProps) 
 
         <div className="container-page relative z-20 py-24 md:py-32 lg:py-40">
           <div className="max-w-2xl">
-            
+
             {/* Jurisdiction Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-5 shadow-lg">
-              <span className="text-xl leading-none drop-shadow-sm">{item.flag}</span>
+              <span className={`fi fi-${item.code ? item.code.toLowerCase() : item.slug} rounded-sm shadow-sm shrink-0`} style={{ width: "24px", height: "18px", backgroundSize: "cover" }} />
               <div className="w-px h-4 bg-white/30" />
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-[#F88D4F]" />

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "flag-icons/css/flag-icons.min.css";
 import { ClientLayout } from "@/components/site/ClientLayout";
 import { JsonLd } from "@/components/site/JsonLd";
 
