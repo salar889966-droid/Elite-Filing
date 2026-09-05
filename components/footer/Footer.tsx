@@ -211,9 +211,15 @@ export function Footer() {
               {/* Active Jurisdictions */}
               {countriesData.filter((c) => !c.comingSoon).map((c) => (
                 <li key={c.slug}>
-                  <Link href={`/services/${c.slug}`} className="hover:text-blue-400 transition-colors flex items-center gap-2 group">
-                    <span className="text-base leading-none grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all">{c.flag}</span>
-                    <span>{c.name}</span>
+                  <Link 
+                    href={`/services/${c.slug}`} 
+                    className="hover:text-blue-400 transition-colors flex items-center gap-2.5 group"
+                  >
+                    <span 
+                      className={`fi fi-${c.code.toLowerCase()} rounded-xs shadow-xs shrink-0 transition-transform duration-200 group-hover:scale-105`} 
+                      style={{ width: "20px", height: "15px", backgroundSize: "cover" }} 
+                    />
+                    <span className="group-hover:text-white transition-colors">{c.name}</span>
                   </Link>
                 </li>
               ))}
@@ -221,8 +227,11 @@ export function Footer() {
               {/* Coming Soon Jurisdictions */}
               {countriesData.filter((c) => c.comingSoon).map((c) => (
                 <li key={c.slug} className="flex items-center justify-between gap-2 text-slate-500/70 select-none">
-                  <div className="flex items-center gap-2">
-                    <span className="text-base leading-none grayscale opacity-40">{c.flag}</span>
+                  <div className="flex items-center gap-2.5">
+                    <span 
+                      className={`fi fi-${c.code.toLowerCase()} rounded-xs shadow-xs shrink-0 opacity-60`} 
+                      style={{ width: "20px", height: "15px", backgroundSize: "cover" }} 
+                    />
                     <span>{c.name}</span>
                   </div>
                   <span className="text-[8px] bg-slate-900/80 text-slate-500 border border-slate-800 px-1.5 py-0.5 rounded font-mono uppercase tracking-tighter">

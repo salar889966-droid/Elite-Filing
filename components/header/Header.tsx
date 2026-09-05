@@ -52,17 +52,89 @@ const brand = {
   tagline: "FORM.LAUNCH.GROW",
 };
 
-// Theme-matched colors (Navy Deep, Navy, Orange)
-const serviceMenuItems = [
-  { slug: "company-formation", label: "Company Formation", icon: Building2, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
-  { slug: "tax-compliance", label: "Tax & Compliance", icon: Receipt, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
-  { slug: "trademark-ip", label: "Trademark & IP", icon: Shield, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
-  { slug: "registered-agent", label: "Registered Agent", icon: MapPin, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
-  { slug: "banking-payments", label: "Banking & Payments", icon: Landmark, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
-  { slug: "accounting", label: "Accounting", icon: Calculator, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
-  { slug: "ecommerce-setup", label: "Ecommerce Setup", icon: ShoppingBag, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
-  { slug: "growth-marketing", label: "Growth & Marketing", icon: Sparkles, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
-  { slug: "business-consultancy", label: "Consultancy", icon: Briefcase, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+interface MegaMenuItem {
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  color: string;
+  bg: string;
+  border: string;
+}
+
+interface MegaMenuCountry {
+  slug: string;
+  code: string;
+  name: string;
+  href: string;
+  items: MegaMenuItem[];
+}
+
+const megaMenuCountries: MegaMenuCountry[] = [
+  {
+    slug: "united-states",
+    code: "US",
+    name: "United States",
+    href: "/services/united-states",
+    items: [
+      { name: "LLC Formation", href: "/services/us/llc-formation", icon: Building2, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Tax & ITIN", href: "/services/united-states", icon: Receipt, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+      { name: "Trademark & IP", href: "/services/united-states", icon: Shield, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Taxation & Audit", href: "/services/united-states", icon: Calculator, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Business Address", href: "/services/united-states", icon: MapPin, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+    ],
+  },
+  {
+    slug: "united-kingdom",
+    code: "GB",
+    name: "United Kingdom",
+    href: "/services/united-kingdom",
+    items: [
+      { name: "LLC Formation", href: "/services/uk/llc-formation", icon: Building2, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Ongoing Changes", href: "/services/united-kingdom", icon: Receipt, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+      { name: "Trademark & IP", href: "/services/united-kingdom", icon: Shield, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Taxation & VAT", href: "/services/united-kingdom", icon: Calculator, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Trade & Customs", href: "/services/united-kingdom", icon: Briefcase, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+    ],
+  },
+  {
+    slug: "uae",
+    code: "AE",
+    name: "United Arab Emirates",
+    href: "/services/uae",
+    items: [
+      { name: "Company Formation", href: "/services/uae", icon: Building2, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Trademark & IP", href: "/services/uae", icon: Shield, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Taxation & VAT", href: "/services/uae", icon: Calculator, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+      { name: "Business Address", href: "/services/uae", icon: MapPin, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Banking & Payments", href: "/services/uae", icon: Landmark, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+    ],
+  },
+  {
+    slug: "canada",
+    code: "CA",
+    name: "Canada",
+    href: "/services/canada",
+    items: [
+      { name: "LLC Formation", href: "/services/canada/llc-formation", icon: Building2, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "SPC FREE zone", href: "/services/canada/spc-free-zone", icon: ShieldCheck, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Trademark & IP", href: "/services/canada", icon: Shield, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Taxation", href: "/services/canada", icon: Calculator, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+      { name: "Business Address", href: "/services/canada", icon: MapPin, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+    ],
+  },
+  {
+    slug: "pakistan",
+    code: "PK",
+    name: "Pakistan",
+    href: "/services/pakistan",
+    items: [
+      { name: "Company Formation", href: "/services/pakistan", icon: Building2, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Trademark & IP", href: "/services/pakistan", icon: Shield, color: "#1145AC", bg: "rgba(17,69,172,0.08)", border: "rgba(17,69,172,0.15)" },
+      { name: "Taxation & Sales Tax", href: "/services/pakistan", icon: Calculator, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+      { name: "Business Address", href: "/services/pakistan", icon: MapPin, color: "#0e3b96", bg: "rgba(14,59,150,0.08)", border: "rgba(14,59,150,0.15)" },
+      { name: "Banking & Payments", href: "/services/pakistan", icon: Landmark, color: "#F07228", bg: "rgba(240,114,40,0.08)", border: "rgba(240,114,40,0.15)" },
+    ],
+  },
 ];
 
 const activeCountries = countriesData.filter((c) => !c.comingSoon);
@@ -345,7 +417,7 @@ function DesktopNav() {
             >
               {/* ── Active Countries Grid with Padded Cards ── */}
               <div className="p-5 grid grid-cols-5 gap-3 bg-slate-50/50 dark:bg-slate-900/10">
-                {activeCountries.map((country) => (
+                {megaMenuCountries.map((country) => (
                   <div 
                     key={country.slug} 
                     className="flex flex-col bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-100 dark:border-slate-800 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#0e3b96]/20"
@@ -353,7 +425,7 @@ function DesktopNav() {
                     {/* Country Header */}
                     <NavigationMenuLink asChild>
                       <Link
-                        href={`/services/${country.slug}`}
+                        href={country.href}
                         className="group flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/80 transition-all duration-300"
                       >
                         <span className={`fi fi-${country.code.toLowerCase()} rounded-sm shadow-sm shrink-0`} style={{ width: "22px", height: "16px", backgroundSize: "cover" }} />
@@ -366,35 +438,31 @@ function DesktopNav() {
 
                     {/* Service Items List */}
                     <ul className="flex flex-col gap-1 flex-1">
-                      {country.serviceCategories.slice(0, 5).map((cat) => {
-                        const svcMeta = serviceMenuItems.find((s) => {
-                          const catLower = cat.categoryName.toLowerCase();
-                          return catLower.includes(s.slug.replace(/-/g, " ").split(" ")[0]);
-                        });
-                        const Icon = svcMeta?.icon;
+                      {country.items.map((item) => {
+                        const Icon = item.icon;
                         return (
-                          <li key={cat.categoryName}>
+                          <li key={item.name}>
                             <NavigationMenuLink asChild>
                               <Link
-                                href={`/services/${country.slug}`}
+                                href={item.href}
                                 className="group flex items-center gap-3 p-2 -mx-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200"
                               >
                                 {Icon && (
                                   <span 
                                     className="w-7 h-7 rounded-md flex items-center justify-center shrink-0 border transition-all duration-300 group-hover:scale-105"
                                     style={{ 
-                                      backgroundColor: svcMeta?.bg,
-                                      borderColor: svcMeta?.border
+                                      backgroundColor: item.bg,
+                                      borderColor: item.border
                                     }}
                                   >
                                     <Icon 
                                       className="w-3.5 h-3.5 transition-colors" 
-                                      style={{ color: svcMeta?.color }}
+                                      style={{ color: item.color }}
                                     />
                                   </span>
                                 )}
                                 <span className="text-[12.5px] font-medium text-slate-800 dark:text-slate-200 group-hover:text-[#0e3b96] dark:group-hover:text-blue-300 group-hover:translate-x-0.5 transition-all duration-200 leading-tight">
-                                  {cat.categoryName}
+                                  {item.name}
                                 </span>
                               </Link>
                             </NavigationMenuLink>

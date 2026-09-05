@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, UploadCloud, CheckCircle2 } from "lucide-react";
+import { Printer, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 
 export default function PortalPrintAndPostPage() {

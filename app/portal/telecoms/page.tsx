@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PhoneCall, Plus, CheckCircle, ShieldCheck, ArrowRight, Voicemail } from "lucide-react";
+import { PhoneCall, Plus, CheckCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
 export default function PortalTelecomsPage() {

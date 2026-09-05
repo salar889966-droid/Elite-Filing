@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, Mail, FileText, Download, Eye, Send } from "lucide-react";
+import { ArrowLeft, Mail, FileText, Download, Send } from "lucide-react";
 import { toast } from "sonner";
 
 interface PostItem {

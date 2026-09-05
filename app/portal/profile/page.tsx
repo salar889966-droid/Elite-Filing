@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { User, Check, Edit2, Save } from "lucide-react";
+import { Edit2, Save } from "lucide-react";
 import { toast } from "sonner";
 
 export default function PortalProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
-    firstName: "Najeeb Ullah",
-    lastName: "Khan salar",
-    emailPrimary: "salar889966@gmail.com",
+    firstName: "",
+    lastName: "",
+    emailPrimary: "",
     emailSecondary: "",
-    phoneNumber: "03100004256",
-    address: "AddressNEAR BILAL MASJID MELA MANDI ROAD",
-    postCode: "45480",
-    country: "Pakistan",
+    phoneNumber: "",
+    address: "",
+    postCode: "",
+    country: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,10 +46,11 @@ export default function PortalProfilePage() {
               <input
                 type="text"
                 name="firstName"
+                placeholder="Enter your first name"
                 value={profile.firstName}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -63,10 +64,11 @@ export default function PortalProfilePage() {
               <input
                 type="text"
                 name="lastName"
+                placeholder="Enter your last name"
                 value={profile.lastName}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -80,10 +82,11 @@ export default function PortalProfilePage() {
               <input
                 type="email"
                 name="emailPrimary"
+                placeholder="Enter your primary email"
                 value={profile.emailPrimary}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -101,7 +104,7 @@ export default function PortalProfilePage() {
                 value={profile.emailSecondary}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -115,10 +118,11 @@ export default function PortalProfilePage() {
               <input
                 type="text"
                 name="phoneNumber"
+                placeholder="Enter your phone number"
                 value={profile.phoneNumber}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -132,10 +136,11 @@ export default function PortalProfilePage() {
               <input
                 type="text"
                 name="address"
+                placeholder="Enter your address"
                 value={profile.address}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -149,10 +154,11 @@ export default function PortalProfilePage() {
               <input
                 type="text"
                 name="postCode"
+                placeholder="Enter your post code / zip code"
                 value={profile.postCode}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>
@@ -166,10 +172,11 @@ export default function PortalProfilePage() {
               <input
                 type="text"
                 name="country"
+                placeholder="Enter your country"
                 value={profile.country}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC]"
+                className="w-full border border-[#cbd5e1] rounded-[2px] px-3.5 py-2.5 text-[#1e3a58] font-medium bg-white disabled:bg-[#f8fafc] disabled:text-slate-700 outline-hidden focus:border-[#1145AC] focus:ring-1 focus:ring-[#1145AC] placeholder-gray-400"
               />
             </div>
           </div>

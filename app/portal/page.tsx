@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   Mail,
   Check,
-  Copy,
   Clock,
   Sparkles,
   ChevronRight,

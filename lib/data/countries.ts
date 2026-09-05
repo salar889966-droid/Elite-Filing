@@ -36,7 +36,7 @@ export const countriesData: CountryItem[] = [
     intro: "The United States remains one of the most trusted jurisdictions for founders building a global business. Whether you need a Delaware LLC for an ecommerce brand or a C-Corporation ready to raise venture funding, Elite Filing handles formation, tax registration, and ongoing compliance so you can operate with confidence.",
     serviceCategories: [
       {
-        categoryName: "Company Formation",
+        categoryName: "LLC Formation",
         items: [
           { name: "LLC Registration", price: 299 },
           { name: "C-Corporation Registration", price: 399 },
@@ -117,7 +117,7 @@ export const countriesData: CountryItem[] = [
     intro: "The UK offers a fast, well-regulated path to a registered company that global clients and partners trust. Elite Filing manages your Companies House registration, VAT, and annual filings so your business stays in good standing from day one.",
     serviceCategories: [
       {
-        categoryName: "Company Formation",
+        categoryName: "LLC Formation",
         items: [
           { name: "LTD Company Registration", price: 199 },
           { name: "Companies House Registration", price: 99 },
@@ -250,7 +250,7 @@ export const countriesData: CountryItem[] = [
     intro: "Canada offers founders a stable, internationally respected jurisdiction with straightforward federal and provincial incorporation paths. Elite Filing manages your name search, registration, and tax setup so your Canadian entity is ready to trade from day one.",
     serviceCategories: [
       {
-        categoryName: "Company Formation",
+        categoryName: "LLC Formation",
         items: [
           { name: "Federal Corporation Registration", price: 599 },
           { name: "Provincial Corporation Registration", price: 499 },
@@ -258,6 +258,14 @@ export const countriesData: CountryItem[] = [
           { name: "GST/HST Registration", price: 150 },
           { name: "Corporate Tax Registration", price: 150 },
           { name: "Compliance Support", price: 299 }
+        ]
+      },
+      {
+        categoryName: "SPC FREE zone",
+        items: [
+          { name: "SPC Free Zone Business License", price: 2200 },
+          { name: "SPC Corporate Entity Setup", price: 2800 },
+          { name: "SPC Remote Visa & Compliance", price: 1100 }
         ]
       },
       {
