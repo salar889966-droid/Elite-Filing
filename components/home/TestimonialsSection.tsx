@@ -60,7 +60,28 @@ export function TestimonialsSection() {
                   </span>
                 </div>
 
-                {/* FIXED LINE BELOW: Using &quot; instead of " */}
+                <div className="flex items-center gap-3 mb-5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/70 px-3 py-2.5">
+                  <div
+                    aria-hidden="true"
+                    className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-700 to-blue-500 text-white flex items-center justify-center text-xs font-extrabold tracking-wide shrink-0 shadow-sm"
+                  >
+                    {item.company
+                      .replace(/\\b(LTD|LIMITED|CO\\.?|COMPANY|FZ)\\b/gi, "")
+                      .trim()
+                      .split(/\\s+/)
+                      .filter(Boolean)
+                      .slice(0, 2)
+                      .map((word) => word[0])
+                      .join("")
+                      .toUpperCase()}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400">Client company</p>
+                    <p className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 leading-snug">{item.company}</p>
+                  </div>
+                </div>
+
+                {/* Testimonial quote */}
                 <p className="text-slate-700 dark:text-slate-300 italic text-base leading-relaxed mb-8 grow">
                   &quot;{item.quote}&quot;
                 </p>
