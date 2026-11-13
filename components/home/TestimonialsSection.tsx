@@ -66,9 +66,9 @@ export function TestimonialsSection() {
                     className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-700 to-blue-500 text-white flex items-center justify-center text-xs font-extrabold tracking-wide shrink-0 shadow-sm"
                   >
                     {item.company
-                      .replace(/\\b(LTD|LIMITED|CO\\.?|COMPANY|FZ)\\b/gi, "")
+                      .replace(/\b(LTD|LIMITED|CO\\.?|COMPANY|FZ)\b/gi, "")
                       .trim()
-                      .split(/\\s+/)
+                      .split(/\s+/)
                       .filter(Boolean)
                       .slice(0, 2)
                       .map((word) => word[0])
