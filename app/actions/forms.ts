@@ -200,7 +200,7 @@ export async function submitFormAction(
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
       const resend = new Resend(resendApiKey);
-      const teamEmail = process.env.NOTIFICATION_EMAIL_TEAM || "hello@elite-filing.com";
+      const teamEmail = process.env.NOTIFICATION_EMAIL_TEAM || "info@elite-filing.com";
       const fromEmail = "Elite Filing <onboarding@resend.dev>";
       const customerFullName = [firstName, lastName].filter(Boolean).join(" ") || email;
 
