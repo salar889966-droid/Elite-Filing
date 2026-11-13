@@ -22,8 +22,8 @@ const brand = {
   tagline: "FORM.LAUNCH.GROW",
   description:
     "A corporate services and consulting firm helping founders form, structure, and scale businesses across the US, UK, UAE, Canada, and Pakistan.",
-  email: "hello@elite-filing.com",
-  phone: "+1 (302) 555-0134",
+  email: "info@elite-filing.com",
+  phone: "+92 310 0004256",
   offices: "Delaware · London · Dubai\nToronto · Rawalpindi",
 };
 

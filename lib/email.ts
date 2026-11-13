@@ -23,7 +23,7 @@ export async function sendWelcomeEmail(toEmail: string, userName: string, servic
             </ol>
           </div>
           <p style="font-size: 13px; color: #64748b;">
-            If you have any questions, reply directly to this email or contact hello@elite-filing.com.
+            If you have any questions, reply directly to this email or contact info@elite-filing.com.
           </p>
         </div>
       `,

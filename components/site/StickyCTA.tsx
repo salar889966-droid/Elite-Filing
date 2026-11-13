@@ -50,7 +50,7 @@ export function StickyCTA({ onOpenConsultation }: StickyCTAProps) {
           </button>
 
           <a
-            href="https://wa.me/13025550134"
+            href="https://wa.me/923100004256"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors"

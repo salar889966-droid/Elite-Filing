@@ -25,7 +25,7 @@ export default function ContactPage() {
           {/* Direct Quick Action Buttons */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://wa.me/13025550134"
+              href="https://wa.me/923100004256"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/25 text-sm transition-all"
@@ -45,11 +45,11 @@ export default function ContactPage() {
             </a>
 
             <a
-              href="tel:+13025550134"
+              href="tel:+923100004256"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm transition-all"
             >
               <Phone className="w-4 h-4 text-orange-400" />
-              <span>Call +1 (302) 555-0134</span>
+              <span>Call +92 310 0004256</span>
             </a>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-slate-400 uppercase">General & Sales Inquiries</div>
-                  <div className="text-base font-semibold text-slate-900 dark:text-white mt-0.5">hello@elite-filing.com</div>
+                  <div className="text-base font-semibold text-slate-900 dark:text-white mt-0.5">info@elite-filing.com</div>
                   <div className="text-xs text-slate-500 mt-1">For new company formations, quotes, & strategy</div>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-slate-400 uppercase">Instant WhatsApp Line</div>
-                  <div className="text-base font-semibold text-slate-900 dark:text-white mt-0.5">+1 (302) 555-0134</div>
+                  <div className="text-base font-semibold text-slate-900 dark:text-white mt-0.5">+92 310 0004256</div>
                   <div className="text-xs text-slate-500 mt-1">Available 24/7 for quick founder queries</div>
                 </div>
               </div>
